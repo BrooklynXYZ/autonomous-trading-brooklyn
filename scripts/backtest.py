@@ -1,12 +1,14 @@
 import pandas as pd
 import numpy as np
-from core.config import load_config
-from data.market_data import get_historical_data
-from data.indicators import compute_sma, compute_rsi
-from ai.model import TradingModel
-from ai.signal_generator import SignalGenerator
-from ai.risk_analyzer import RiskAnalyzer
 import warnings
+
+# Use relative imports from the 'src' directory
+from src.core.config import load_config
+from src.data.market_data import get_historical_data
+from src.data.indicators import compute_sma, compute_rsi
+from src.ai.model import TradingModel
+from src.ai.signal_generator import SignalGenerator
+from src.ai.risk_analyzer import RiskAnalyzer
 
 warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=UserWarning)
@@ -19,9 +21,10 @@ def run_backtest():
 
     # 1. Configuration
     try:
+        # Path is now relative to the project root where the command is run
         main_config = load_config('config/main.yaml')
     except FileNotFoundError:
-        print("Error: config/main.yaml not found.")
+        print("Error: config/main.yaml not found. Make sure you are running the script from the project root directory.")
         return
         
     initial_capital = 10.0
