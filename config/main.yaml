@@ -1,5 +1,13 @@
-api_key: "YOUR_API_KEY"
-api_secret: "YOUR_API_SECRET"
-base_currency: "BTC"
-quote_currency: "USDT"
-risk_per_trade: 0.02
+exchange: 'kraken'
+
+trading_pairs:
+  - "BTC/USDT"
+  - "ETH/USDT"
+  - "SOL/USDT"
+  - "ADA/USDT"
+
+risk_per_trade: 0.01
+stop_loss_atr_multiplier: 2.0
+take_profit_atr_multiplier: 4.0
+
+model_type: 'ensemble'

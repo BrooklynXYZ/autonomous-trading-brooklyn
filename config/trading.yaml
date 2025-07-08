@@ -1,5 +1,24 @@
-exchange: "binance"
-symbols:
+# Exchange Configuration
+# The exchange to use for fetching data (e.g., kraken, binance, coinbase)
+exchange: 'kraken'
+
+# Trading Pairs - List of symbols to trade in BASE/QUOTE format
+# The bot will allocate capital and trade these symbols independently.
+trading_pairs:
   - "BTC/USDT"
   - "ETH/USDT"
-max_drawdown: 0.2
+  - "SOL/USDT"
+  - "ADA/USDT"
+  - "XRP/USDT"
+
+# Risk Management
+# The fraction of the portfolio to risk on a single trade.
+risk_per_trade: 0.01 # Risk 1% of capital per trade
+
+# Multiplier for the Average True Range (ATR) to set stop-loss and take-profit levels.
+# A lower stop-loss multiplier will be tighter, while a higher one will be looser.
+stop_loss_atr_multiplier: 2.0   # Stop-loss at 2 * ATR below entry price
+take_profit_atr_multiplier: 4.0 # Take-profit at 4 * ATR above entry price
+
+# AI Model Configuration
+model_type: 'ensemble' # 'ensemble' or 'simple'

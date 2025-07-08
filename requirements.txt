@@ -1,5 +1,5 @@
 # Trading and Market Data
-ccxt
+ccxt>=4.0.0
 yfinance
 pandas
 numpy
@@ -8,6 +8,8 @@ numpy
 scikit-learn
 transformers
 torch
+xgboost
+lightgbm
 
 # Configuration
 pydantic
@@ -15,3 +17,8 @@ pyyaml
 
 # Testing
 pytest
+
+# Additional dependencies
+matplotlib
+seaborn
+scipy

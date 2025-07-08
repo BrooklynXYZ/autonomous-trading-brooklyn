@@ -1,18 +1,20 @@
 import yaml
 from pydantic import BaseModel, ValidationError
+from typing import List
 
 class TradingConfig(BaseModel):
-    api_key: str
-    api_secret: str
-    base_currency: str
-    quote_currency: str
+    exchange: str
+    trading_pairs: List[str]  # Define trading_pairs as a list of strings
     risk_per_trade: float
+    stop_loss_atr_multiplier: float
+    take_profit_atr_multiplier: float
+    model_type: str
 
-def load_config(path: str) -> TradingConfig:
-    with open(path, 'r') as f:
-        data = yaml.safe_load(f)
+def load_config(filepath: str):
+    with open(filepath, 'r') as file:
+        config_data = yaml.safe_load(file)
     try:
-        return TradingConfig(**data)
+        return TradingConfig(**config_data)
     except ValidationError as e:
-        print("Config validation error:", e)
+        print(f"Error validating config file: {e}")
         raise
