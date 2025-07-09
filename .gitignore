@@ -10,3 +10,5 @@ brooklyn/lib64/
 brooklyn/bin/
 brooklyn/include/
 brooklyn/share/
+
+*.pyc
