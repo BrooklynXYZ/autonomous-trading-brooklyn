@@ -1,2 +1,20 @@
 .venv/
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+brooklyn/lib/
+brooklyn/lib64/
+brooklyn/bin/
+brooklyn/include/
+brooklyn/share/
+
+# Byte-compiled Python files
+=======
+>>>>>>> parent of 0aa7588f (Undo git rm -r --cached .)
+>>>>>>> Stashed changes
 *.pyc
