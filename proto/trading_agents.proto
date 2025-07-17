@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+package trading_agents;
+
+service CoinScoutService {
+    rpc GetNewPairs (EmptyRequest) returns (PairListResponse);
+    rpc ScanDEXPairs (ScanRequest) returns (PairListResponse);
+    rpc GetPairDetails (PairRequest) returns (PairDetailsResponse);
+}
+
+service SentimentPulseService {
+    rpc GetSentimentSignal (SentimentRequest) returns (SentimentResponse);
+    rpc GetSocialVolume (SocialVolumeRequest) returns (SocialVolumeResponse);
+    rpc GetNewsEvents (NewsRequest) returns (NewsResponse);
+}
+
+service TechnicalEdgeService {
+    rpc GetTechnicalSignal (TechnicalRequest) returns (TechnicalResponse);
+    rpc GetIndicators (IndicatorRequest) returns (IndicatorResponse);
+    rpc GetOnChainMetrics (OnChainRequest) returns (OnChainResponse);
+}
+
+service TradeBrainService {
+    rpc ExecuteTrade (TradeRequest) returns (TradeResponse);
+    rpc GetPortfolioStatus (PortfolioRequest) returns (PortfolioResponse);
+    rpc CalculateRisk (RiskRequest) returns (RiskResponse);
+}
+
+message EmptyRequest {}
+
+message PairListResponse {
+    repeated TokenPair pairs = 1;
+}
+
+message TokenPair {
+    string symbol = 1;
+    string address = 2;
+    string dex = 3;
+    double price = 4;
+    double volume_24h = 5;
+    double liquidity = 6;
+    int64 created_at = 7;
+}
+
+message ScanRequest {
+    string dex = 1;
+    int32 min_liquidity = 2;
+    int32 max_age_hours = 3;
+}
+
+message PairRequest {
+    string symbol = 1;
+    string address = 2;
+}
+
+message PairDetailsResponse {
+    TokenPair pair = 1;
+    repeated PricePoint price_history = 2;
+    double market_cap = 3;
+    string contract_verified = 4;
+}
+
+message PricePoint {
+    int64 timestamp = 1;
+    double price = 2;
+    double volume = 3;
+}
+
+message SentimentRequest {
+    string symbol = 1;
+    int32 time_window_hours = 2;
+}
+
+message SentimentResponse {
+    string symbol = 1;
+    double sentiment_score = 2;
+    double confidence = 3;
+    int32 mentions_count = 4;
+    repeated SentimentSource sources = 5;
+}
+
+message SentimentSource {
+    string platform = 1;
+    double score = 2;
+    int32 count = 3;
+}
+
+message TechnicalRequest {
+    string symbol = 1;
+    repeated string indicators = 2;
+    string timeframe = 3;
+}
+
+message TechnicalResponse {
+    string symbol = 1;
+    double technical_score = 2;
+    repeated IndicatorValue indicators = 3;
+    string signal = 4;
+}
+
+message IndicatorValue {
+    string name = 1;
+    double value = 2;
+    string signal = 3;
+}
+
+message TradeRequest {
+    string symbol = 1;
+    string side = 2;
+    double quantity = 3;
+    string order_type = 4;
+    double price = 5;
+}
+
+message TradeResponse {
+    string order_id = 1;
+    string status = 2;
+    double filled_quantity = 3;
+    double avg_price = 4;
+    string message = 5;
+}
+
+message PortfolioRequest {
+    string account_id = 1;
+}
+
+message PortfolioResponse {
+    double total_value = 1;
+    double available_cash = 2;
+    repeated Position positions = 3;
+    double pnl_24h = 4;
+}
+
+message Position {
+    string symbol = 1;
+    double quantity = 2;
+    double avg_price = 3;
+    double current_price = 4;
+    double unrealized_pnl = 5;
+}
+
+message RiskRequest {
+    string symbol = 1;
+    double quantity = 2;
+    double portfolio_value = 3;
+}
+
+message RiskResponse {
+    double position_size = 1;
+    double stop_loss = 2;
+    double take_profit = 3;
+    double risk_score = 4;
+    bool approved = 5;
+}

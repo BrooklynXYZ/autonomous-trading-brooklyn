@@ -10,15 +10,64 @@ transformers
 torch
 xgboost
 lightgbm
+textblob
+
+# gRPC and Protocol Buffers
+grpcio>=1.50.0
+grpcio-tools>=1.50.0
+protobuf>=4.21.0
+
+# Web Scraping
+aiohttp
+requests
+beautifulsoup4
+tweepy
+praw
+python-telegram-bot
+
+# Database and Feature Store
+duckdb>=0.8.0
+pymongo
+redis
+
+# Data Processing
+polars
+pyarrow
 
 # Configuration
 pydantic
 pyyaml
 
+# Web3 and Blockchain
+web3
+eth-utils
+eth-abi
+
+# Async and Concurrency
+asyncio
+uvloop
+aiofiles
+
+# Monitoring and Logging
+prometheus-client
+grafana-api
+structlog
+
 # Testing
 pytest
+pytest-asyncio
+pytest-mock
+
+# Development
+black
+flake8
+mypy
 
 # Additional dependencies
 matplotlib
 seaborn
 scipy
+fastapi
+uvicorn
+celery
+ray

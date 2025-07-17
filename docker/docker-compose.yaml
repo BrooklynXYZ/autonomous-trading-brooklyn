@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  coin-scout:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.coin_scout
+    ports:
+      - "50051:50051"
+    volumes:
+      - ../config:/app/config
+      - ../logs:/app/logs
+    environment:
+      - GRPC_PORT=50051
+      - LOG_LEVEL=INFO
+    depends_on:
+      - redis
+      - duckdb
+    networks:
+      - trading-network
+
+  sentiment-pulse:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.sentiment_pulse
+    ports:
+      - "50052:50052"
+    volumes:
+      - ../config:/app/config
+      - ../logs:/app/logs
+    environment:
+      - GRPC_PORT=50052
+      - LOG_LEVEL=INFO
+    depends_on:
+      - redis
+      - duckdb
+    networks:
+      - trading-network
+
+  technical-edge:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.technical_edge
+    ports:
+      - "50053:50053"
+    volumes:
+      - ../config:/app/config
+      - ../logs:/app/logs
+    environment:
+      - GRPC_PORT=50053
+      - LOG_LEVEL=INFO
+    depends_on:
+      - redis
+      - duckdb
+    networks:
+      - trading-network
+
+  trade-brain:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.trade_brain
+    ports:
+      - "50054:50054"
+    volumes:
+      - ../config:/app/config
+      - ../logs:/app/logs
+    environment:
+      - GRPC_PORT=50054
+      - LOG_LEVEL=INFO
+    depends_on:
+      - coin-scout
+      - sentiment-pulse
+      - technical-edge
+      - redis
+      - duckdb
+    networks:
+      - trading-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - trading-network
+
+  duckdb:
+    image: duckdb/duckdb:latest
+    volumes:
+      - duckdb_data:/data
+    networks:
+      - trading-network
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - trading-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - trading-network
+
+volumes:
+  redis_data:
+  duckdb_data:
+  grafana_data:
+  prometheus_data:
+
+networks:
+  trading-network:
+    driver: bridge

@@ -1,0 +1,27 @@
+grpc_port: 50051
+scan_interval: 60  # seconds
+dex_list:
+  - "uniswap"
+  - "pancakeswap"
+  - "sushiswap"
+
+dex_config:
+  uniswap_v2_factory: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"
+  pancakeswap_factory: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73"
+  sushiswap_factory: "0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac"
+  
+  rpc_endpoints:
+    ethereum: "https://mainnet.infura.io/v3/YOUR_INFURA_KEY"
+    bsc: "https://bsc-dataseed.binance.org/"
+    polygon: "https://polygon-rpc.com/"
+  
+  api_keys:
+    dexscreener: "YOUR_DEXSCREENER_API_KEY"
+    moralis: "YOUR_MORALIS_API_KEY"
+
+detection_config:
+  min_liquidity: 10000
+  max_age_hours: 24
+  volume_threshold: 5000.0
+  blacklisted_tokens:
+    - "0x0000000000000000000000000000000000000000"

@@ -1,0 +1,27 @@
+grpc_port: 50052
+monitoring_interval: 300  # seconds
+
+reddit_config:
+  client_id: "YOUR_REDDIT_CLIENT_ID"
+  client_secret: "YOUR_REDDIT_CLIENT_SECRET"
+  user_agent: "trading_bot:v1.0"
+  username: "YOUR_REDDIT_USERNAME"
+  password: "YOUR_REDDIT_PASSWORD"
+
+twitter_config:
+  bearer_token: "YOUR_TWITTER_BEARER_TOKEN"
+  consumer_key: "YOUR_TWITTER_CONSUMER_KEY"
+  consumer_secret: "YOUR_TWITTER_CONSUMER_SECRET"
+  access_token: "YOUR_TWITTER_ACCESS_TOKEN"
+  access_token_secret: "YOUR_TWITTER_ACCESS_TOKEN_SECRET"
+
+telegram_config:
+  bot_token: "YOUR_TELEGRAM_BOT_TOKEN"
+  channels:
+    - "@cryptosignals"
+    - "@altcoinsignals"
+
+model_config:
+  model_type: "transformers"
+  model_name: "cardiffnlp/twitter-roberta-base-sentiment-latest"
+  cache_dir: "./models/sentiment"
