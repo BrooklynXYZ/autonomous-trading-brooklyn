@@ -1,0 +1,6 @@
+# Rules
+- Always use a development_plan.md to create a list of TODOs, issues, and other notes. Focus on tracking things that you can check off in groups. Mark things as done or put new blocks of work into the document in the right, logical order to complete them later if you run into them. Your aim is always to get through the development_plan.md to complete my task.
+- If command.md exists, use it to build your development_plan.md.
+- If building on recall SDKs or libs, try to use them as provided without replicating or duplicating their abilities.
+- Keep a checklist in your development_plan.md to track progress and completion of tasks.
+- Maintain excellent developer documentation within the code itself.

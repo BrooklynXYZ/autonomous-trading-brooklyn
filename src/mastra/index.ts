@@ -2,11 +2,12 @@ import { Mastra } from "@mastra/core/mastra";
 import { PinoLogger } from "@mastra/loggers";
 import { LibSQLStore } from "@mastra/libsql";
 import { weatherWorkflow } from "./workflows/weather-workflow";
+import { tradingWorkflow } from "./workflows/trading-workflow";
 import { weatherAgent } from "./agents/weather-agent";
 import { tradingAgent } from "./agents/trading-agent";
 
 export const mastra = new Mastra({
-  workflows: { weatherWorkflow },
+  workflows: { weatherWorkflow, tradingWorkflow },
   agents: {
     weatherAgent,
     tradingAgent,

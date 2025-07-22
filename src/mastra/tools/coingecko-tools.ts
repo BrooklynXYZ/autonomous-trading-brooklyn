@@ -73,7 +73,7 @@ export const getCryptoPrice = createTool({
 export const getHistoricalCryptoPrices = createTool({
   id: "Get historical crypto prices for use in a chart",
   inputSchema: z.object({ id: z.string(), days: z.number() }),
-  description: "Get historical crypto prices for use in a chart",
+  description: "Get historical crypto prices for use in a chart, now includes volume as well.",
   execute: async ({ context: { id, days } }) => {
     console.log("getHistoricalCryptoPrices for", id);
     const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}`;
@@ -89,9 +89,21 @@ export const getHistoricalCryptoPrices = createTool({
     const response = await fetch(url, options);
     const data = await response.json();
 
-    return data.prices.map((price: number[]) => ({
-      timestamp: price[0],
-      price: price[1],
-    }));
+    // Patch: include volume from total_volumes
+    const prices = data.prices || [];
+    const volumes = data.total_volumes || [];
+    // Match price and volume by timestamp
+    return prices.map((priceArr: number[], i: number) => {
+      const timestamp = priceArr[0];
+      const price = priceArr[1];
+      // Find matching volume by timestamp (may not be exact, so fallback to same index)
+      let volume = 0;
+      if (volumes[i] && volumes[i][0] === timestamp) {
+        volume = volumes[i][1];
+      } else if (volumes[i]) {
+        volume = volumes[i][1];
+      }
+      return { timestamp, price, volume };
+    });
   },
 });

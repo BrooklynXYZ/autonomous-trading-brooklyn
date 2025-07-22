@@ -1,5 +1,0 @@
-model_type: "RandomForest"
-features:
-  - "sma"
-  - "rsi"
-  - "sentiment"
